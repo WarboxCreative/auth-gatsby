@@ -1,8 +1,10 @@
 import React from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
+import { useUser } from '../hooks/useUser'
 
 const LogoutButton = () => {
-	const { isLoading, logout } = useAuth0()
+	const { logout } = useAuth0()
+	const { isLoading } = useUser()
 
 	const handleLogout = async () => {
 		await logout({

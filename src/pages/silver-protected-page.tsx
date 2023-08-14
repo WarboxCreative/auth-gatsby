@@ -3,11 +3,19 @@ import Layout from '../components/Layout'
 
 import { useAuth0 } from '@auth0/auth0-react'
 import { withAuthenticationRequired } from '@auth0/auth0-react'
+import { useUser } from '../hooks/useUser'
+
+import { navigate } from 'gatsby'
+import { withRoleRequired } from '../auth/withRoleRequired'
 
 const SilverProtectedPage = () => {
-	const { user } = useAuth0()
+	const { user } = useUser()
 
-	console.log(user)
+	const test = withRoleRequired(<div></div>, 'silver')
+
+	if (!user || user.role !== 'silver') {
+		navigate('/')
+	}
 
 	return (
 		<Layout>

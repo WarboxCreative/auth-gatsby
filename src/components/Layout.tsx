@@ -3,6 +3,7 @@ import React from 'react'
 import LoginButton from './LoginButton'
 import { useAuth0 } from '@auth0/auth0-react'
 import LogoutButton from './LogoutButton'
+import { useUser } from '../hooks/useUser'
 
 type Props = {
 	children: React.ReactNode
@@ -10,6 +11,7 @@ type Props = {
 
 const Layout: React.FC<Props> = ({ children }) => {
 	const { isAuthenticated } = useAuth0()
+	const { user, isLoading } = useUser()
 
 	return (
 		<>
@@ -30,7 +32,13 @@ const Layout: React.FC<Props> = ({ children }) => {
 						</li>
 					</ul>
 
-					{isAuthenticated ? <LogoutButton /> : <LoginButton />}
+					<div className="flex flex-row items-center space-x-4">
+						{isLoading ? <p>Loading...</p> : null}
+
+						{user && !isLoading ? <p>Logged in as {user.name}</p> : null}
+
+						{isAuthenticated ? <LogoutButton /> : <LoginButton />}
+					</div>
 				</div>
 			</header>
 

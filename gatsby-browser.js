@@ -3,6 +3,7 @@ import './src/styles/global.css'
 import React from 'react'
 
 import { Auth0Provider } from '@auth0/auth0-react'
+import { UserProvider } from './src/provider/UserProvider'
 
 import { navigate } from 'gatsby'
 
@@ -19,7 +20,14 @@ export const wrapRootElement = ({ element }) => {
 			redirectUri={window.location.origin}
 			onRedirectCallback={onRedirectCallback}
 		>
-			{element}
+			<UserProvider
+				value={{
+					user: null,
+					isLoading: true,
+				}}
+			>
+				{element}
+			</UserProvider>
 		</Auth0Provider>
 	)
 }

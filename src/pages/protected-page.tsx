@@ -7,8 +7,6 @@ import { withAuthenticationRequired } from '@auth0/auth0-react'
 const ProtectedPage = () => {
 	const { user } = useAuth0()
 
-	console.log(user)
-
 	return (
 		<Layout>
 			<h1 className="text-2xl">ProtectedPage</h1>
